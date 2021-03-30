@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<div class="container"><br>
+    <div class="row">
+        <div class="col-md-8">
+            {% for image in all_images %}
+            <div class="container" style="padding-left: 50%;">
+                <a href="{% url 'showprofile' image.profile.id %}"> 
+                    {% if image.profile_pic %}
+                    <img src="{{image.profile_pic.url}}" style=" width:100px;height:100px; border-radius:50%;">
+                    {{image.profile.username}}</a>
+                {% else %}
+                <img src="/static/images/default.jpg" class="rounded-circle" style=" width:80px;height:80px;"
+                    alt="avatar">
+                <b>{{image.profile.username}}</b></a>
+                {% endif %}
+                <div class="card-img-top img-responsive">
+                    <img src="{{image.image.url}}" style="width: 500px; height: 350px;" alt="Image"></div>
+              
+                    <div class="container"><br>
+                        <ul class="list-inline text-black">
+                        <li class="list-inline-item">
+                            {{ image.like }}
+                            <i class="fa fa-heart fa-2x" style="font-size:30px;color:red" aria-hidden="true"></i>{{likes|length}} likes</a>
+                            <i class="fa fa-comment-o fa-2x" aria-hidden="true" style="color:black;"></i> {{image.comment.count}} </a>
+                            {{ image.messages }}
+                            <i class="fa fa-paper-plane-o fa-2x"></i><a href="/messages/ {{image.message}}"></a>
+                            <i class="fa fa-bookmark" style="float: right; font-size:30px;"></i><a class="text-center" href="#"></a>
+                        </li>
+                        </ul>
+                        <h1>{{ image.name }}</h1>
+                        <p> {{image.caption}}</p>
+                    <div class="card-body ">
+                        {% for comment in comments %}
+                        {% if comment.image_id == image.id%}
+                        <h3> <b> {{user.username}} :</b> {{comment.comment}}</h3>
+                        <p>{{image.time_created}}</p>
+                        <hr>
+                        <p class="text-muted">Add Comment...</p>
+                    <br>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    </div>
+          </div>
+            {% empty %}<br>
+            <div class="jumbotron text-center">
+
+                <p><a href="{% url 'upload_image' %}"> Add Image</a></p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

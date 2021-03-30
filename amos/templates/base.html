@@ -1,0 +1,19 @@
+{% load static %}
+{% load bootstrap4 %}
+
+<head>
+    <meta charset="UTF-8">
+    {% if title %}
+    <title>Instagram {{title}}</title>
+    {% else %}
+    <title>Instagram</title>
+    {% endif %}
+</head>
+
+<body>
+    {% include "navbar.html" %}
+
+    {% block content %}
+
+    {% endblock %}
+</body>
