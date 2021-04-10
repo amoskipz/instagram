@@ -10,7 +10,7 @@
         <div class="col-md-8">
             {% for image in all_images %}
             <div class="container" style="padding-left: 50%;">
-                <a href="{% url 'showprofile' image.profile.id %}"> 
+                <a href="{% url 'showprofile' image.profile.id %}">
                     {% if image.profile_pic %}
                     <img src="{{image.profile_pic.url}}" style=" width:100px;height:100px; border-radius:50%;">
                     {{image.profile.username}}</a>
@@ -21,20 +21,45 @@
                 {% endif %}
                 <div class="card-img-top img-responsive">
                     <img src="{{image.image.url}}" style="width: 500px; height: 350px;" alt="Image"></div>
-              
-                    <div class="container"><br>
-                        <ul class="list-inline text-black">
+
+                <div class="container"><br>
+                    <ul class="list-inline text-black">
                         <li class="list-inline-item">
                             {{ image.like }}
-                            <i class="fa fa-heart fa-2x" style="font-size:30px;color:red" aria-hidden="true"></i>{{likes|length}} likes</a>
-                            <i class="fa fa-comment-o fa-2x" aria-hidden="true" style="color:black;"></i> {{image.comment.count}} </a>
+                            <script>
+                                function clickCounter() {
+                                    if (typeof (Storage) !== "undefined") {
+                                        if (localStorage.clickcount) {
+                                            localStorage.clickcount = Number(localStorage.clickcount) + 1;
+                                        } else {
+                                            localStorage.clickcount = 1;
+                                        }
+                                        document.getElementById("result").innerHTML =
+                                            localStorage.clickcount;
+                                    } else {
+                                        document.getElementById("result").innerHTML =
+                                            "Sorry, your browser does not support web storage...";
+                                    }
+                                }
+                            </script>
+                            <div style="display: inline-flex;">
+                                <p style="padding-right: 5px;"><button onclick="clickCounter()" type="button"> <i class="fa fa-heart fa-2x"
+                                            style="font-size:30px;color:red"></i>
+
+                                    </button></p> 
+                                <div id="result"></div>
+                            </div>
+
+                            <i class="fa fa-comment-o fa-2x" aria-hidden="true" style="color:black;"></i>
+                            {{image.comment.count}} </a>
                             {{ image.messages }}
                             <i class="fa fa-paper-plane-o fa-2x"></i><a href="/messages/ {{image.message}}"></a>
-                            <i class="fa fa-bookmark" style="float: right; font-size:30px;"></i><a class="text-center" href="#"></a>
+                            <i class="fa fa-bookmark" style="float: right; font-size:30px;"></i><a class="text-center"
+                                href="#"></a>
                         </li>
-                        </ul>
-                        <h1>{{ image.name }}</h1>
-                        <p> {{image.caption}}</p>
+                    </ul>
+                    <h1>{{ image.name }}</h1>
+                    <p> {{image.caption}}</p>
                     <div class="card-body ">
                         {% for comment in comments %}
                         {% if comment.image_id == image.id%}
@@ -42,12 +67,12 @@
                         <p>{{image.time_created}}</p>
                         <hr>
                         <p class="text-muted">Add Comment...</p>
-                    <br>
+                        <br>
                         {% endif %}
                         {% endfor %}
                     </div>
-                    </div>
-          </div>
+                </div>
+            </div>
             {% empty %}<br>
             <div class="jumbotron text-center">
 
