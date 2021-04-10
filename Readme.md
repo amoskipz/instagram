@@ -30,6 +30,9 @@ This is an instagram clone app. The user upon loging in can be able to upload im
 # Bugs
 Can't search other users
 
+# Codebeat
+[![codebeat badge](https://codebeat.co/badges/10a4bb12-84f1-4fde-840c-be4920364a31)](https://codebeat.co/projects/github-com-amoskipz-instagram-master)
+
 License
 This project is licensed under the MIT LICENSE
 
