@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from .models import Image, Profile,Comment,Follow,Likes
 from django.http import HttpResponse, Http404
 from friendship.exceptions import AlreadyExistsError
-from .forms import MessageForm, ProfileForm, ImageForm, CommentForm
+from .forms import MessageForm, ProfileForm, ImageForm, CommentForm,RegistrationForm
 
 
 
@@ -113,3 +113,17 @@ def messages(request):
     images = Image.objects.all()
     messageform = MessageForm()
     return render(request, 'messages.html',{'images': images, 'messageform':messageform})        
+
+def register(request):
+    if request.method=="POST":
+        form=RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # messages.success(request, f'Successfully created Account!.You can now login as {username}!')
+        return redirect('/accounts/login')
+    else:
+        form= RegistrationForm()
+    params={
+        'form':form,
+    }
+    return render(request, 'register.html', params)    
